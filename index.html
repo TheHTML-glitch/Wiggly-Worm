@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wiggly Worm</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #worm {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            transition: transform 0.1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="worm"></div>
+
+    <script>
+        const worm = document.getElementById('worm');
+        let lastX = window.innerWidth / 2;
+        let lastY = window.innerHeight / 2;
+
+        function moveWorm() {
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            // Calculate the distance from the current position to the mouse
+            const diffX = Math.abs(lastX - mouseX);
+            const diffY = Math.abs(lastY - mouseY);
+
+            if (diffX > 10 || diffY > 10) {
+                // Random movement in both x and y directions
+                const randomX = Math.random() * 20 - 10; // Random between -10 and 10
+                const randomY = Math.random() * 20 - 10; // Random between -10 and 10
+
+                // Apply random movement
+                lastX += randomX;
+                lastY += randomY;
+
+                // Move the worm to the new position
+                worm.style.left = `${lastX}px`;
+                worm.style.top = `${lastY}px`;
+
+                // Rotate randomly
+                const randomRotation = Math.random() * 20 - 10; // Random between -10 and 10 degrees
+                worm.style.transform = `rotate(${randomRotation}deg)`;
+            }
+
+            requestAnimationFrame(moveWorm);
+        }
+
+        // Start the movement
+        moveWorm();
+    </script>
+</body>
+</html>
